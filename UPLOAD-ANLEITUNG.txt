@@ -1,0 +1,13 @@
+HUMANITY WINS WEBSITE V3
+
+WICHTIG: Diese ZIP enthält die Projektdateien DIREKT auf oberster Ebene.
+Nach dem Entpacken im Ordner alles mit Cmd+A markieren und den INHALT in GitHub hochladen.
+Nicht den entpackten Ordner selbst hineinziehen.
+
+Enthalten und geprüft:
+- Startseite mit Countdown bis 31.08.2026
+- Kontaktlinks: hello, press, partners, legal, support
+- /impressum/
+- /datenschutz/
+- Netlify-Build und statischer Export nach /out
+- Weiterleitung unitedhumanity.world -> humanitywins.world
