@@ -10,3 +10,15 @@
   [headers.values]
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[redirects]]
+  from = "https://unitedhumanity.world/*"
+  to = "https://humanitywins.world/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.unitedhumanity.world/*"
+  to = "https://humanitywins.world/:splat"
+  status = 301
+  force = true
