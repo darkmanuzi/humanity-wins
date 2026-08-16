@@ -213,8 +213,15 @@ export default function Home() {
           country: anonymous ? "" : country.trim(), lang
         }),
       });
-      const data = await response.json();
-      if (!response.ok || !data.checkoutUrl) throw new Error(data.error || "Checkout could not be created.");
+      const raw = await response.text();
+      let data: { checkoutUrl?: string; error?: string } = {};
+      if (raw) {
+        try { data = JSON.parse(raw); }
+        catch { throw new Error(`Checkout server returned HTTP ${response.status} without valid JSON.`); }
+      }
+      if (!response.ok || !data.checkoutUrl) {
+        throw new Error(data.error || `Checkout server returned HTTP ${response.status}.`);
+      }
       window.location.href = data.checkoutUrl;
     } catch (error) {
       setCheckoutError(error instanceof Error ? error.message : "Checkout could not be created.");
