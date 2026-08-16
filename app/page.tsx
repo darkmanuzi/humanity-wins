@@ -213,9 +213,26 @@ export default function Home() {
           country: anonymous ? "" : country.trim(), lang
         }),
       });
-      const data = await response.json();
-      if (!response.ok || !data.checkoutUrl) throw new Error(data.error || "Checkout could not be created.");
-      window.location.href = data.checkoutUrl;
+      const text = await response.text();
+
+let data: any = {};
+if (text) {
+  try {
+    data = JSON.parse(text);
+  } catch {
+    throw new Error(`Server returned an invalid response (${response.status}).`);
+  }
+}
+
+if (!response.ok) {
+  throw new Error(data.error || `Checkout could not be created (${response.status}).`);
+}
+
+if (!data.checkoutUrl) {
+  throw new Error("Checkout URL was not returned.");
+}
+
+window.location.href = data.checkoutUrl;
     } catch (error) {
       setCheckoutError(error instanceof Error ? error.message : "Checkout could not be created.");
       setCheckoutBusy(false);
