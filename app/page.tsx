@@ -97,6 +97,16 @@ type SupportCopy = {
   transparencyKicker: string; transparencyTitle: string; transparencyLead: string; sold: string; committed: string; generated: string; transferred: string; recipient: string; recipientTbd: string; reporting: string;
 };
 
+const GOFUNDME_URL = "https://www.gofundme.com/f/humanity-wins-21-languages-one-message-one-world";
+
+const goFundMeCopy: Record<Lang, { badge: string; title: string; lead: string; cta: string; note: string }> = {
+  de: { badge: "OFFIZIELLE GOFUNDME-KAMPAGNE", title: "Hilf uns, HUMANITY WINS in die Welt zu tragen.", lead: "Deine Unterstützung finanziert die unabhängige Weiterentwicklung, Produktion und internationale Sichtbarkeit des Friedensprojekts. Auf GoFundMe findest du die vollständige Kampagnengeschichte und alle aktuellen Informationen.", cta: "Jetzt auf GoFundMe unterstützen", note: "Sichere Abwicklung direkt über GoFundMe · Du entscheidest über deinen Beitrag" },
+  en: { badge: "OFFICIAL GOFUNDME CAMPAIGN", title: "Help us carry HUMANITY WINS into the world.", lead: "Your support funds the independent development, production and international reach of this peace project. Visit GoFundMe for the full campaign story and the latest updates.", cta: "Support us on GoFundMe", note: "Securely handled by GoFundMe · You choose your contribution" },
+  fr: { badge: "CAMPAGNE GOFUNDME OFFICIELLE", title: "Aidez-nous à faire voyager HUMANITY WINS dans le monde.", lead: "Votre soutien finance le développement indépendant, la production et la portée internationale de ce projet de paix. Retrouvez l’histoire complète et les dernières nouvelles sur GoFundMe.", cta: "Soutenir sur GoFundMe", note: "Paiement sécurisé via GoFundMe · Vous choisissez votre contribution" },
+  es: { badge: "CAMPAÑA OFICIAL EN GOFUNDME", title: "Ayúdanos a llevar HUMANITY WINS al mundo.", lead: "Tu apoyo financia el desarrollo independiente, la producción y el alcance internacional de este proyecto de paz. En GoFundMe encontrarás la historia completa y las últimas novedades.", cta: "Apoyar en GoFundMe", note: "Gestión segura a través de GoFundMe · Tú eliges tu aportación" },
+  bs: { badge: "ZVANIČNA GOFUNDME KAMPANJA", title: "Pomozite nam da HUMANITY WINS prenesemo u svijet.", lead: "Vaša podrška finansira nezavisan razvoj, produkciju i međunarodni domet ovog mirovnog projekta. Na GoFundMe stranici pronaći ćete cijelu priču kampanje i najnovije informacije.", cta: "Podrži na GoFundMe", note: "Sigurna obrada putem GoFundMe · Vi birate iznos podrške" },
+};
+
 const supportCopy: Record<Lang, SupportCopy> = {
   de: {
     supportKicker: "SUPPORT THE PROJECT", supportTitle: "Wenn diese Idee existieren soll, kannst du helfen, sie aufzubauen.", supportLead: "HUMANITY WINS ist ein unabhängiges Projekt. Freiwillige Unterstützung hilft bei Schutz, Produktion, Technik, Kommunikation und internationaler Weiterentwicklung – ohne Ranglisten und ohne gekaufte Sichtbarkeit.",
@@ -181,46 +191,7 @@ export default function Home() {
   const [lang, setLang] = useState<Lang>("de");
   const t = copy[lang];
   const s = supportCopy[lang];
-  const [supportAmount, setSupportAmount] = useState<number | "custom">(25);
-  const [customAmount, setCustomAmount] = useState("");
-  const [wallVisible, setWallVisible] = useState(true);
-  const [anonymous, setAnonymous] = useState(false);
-  const [publicName, setPublicName] = useState("");
-  const [country, setCountry] = useState("");
-  const [checkoutBusy, setCheckoutBusy] = useState(false);
-  const [checkoutError, setCheckoutError] = useState("");
-
-  async function startSupportCheckout() {
-    setCheckoutError("");
-    const rawAmount = supportAmount === "custom" ? customAmount.replace(",", ".") : String(supportAmount);
-    const amount = Number(rawAmount);
-    if (!Number.isFinite(amount) || amount < 1) {
-      setCheckoutError(lang === "de" ? "Bitte gib einen gültigen Unterstützungsbetrag ein." : "Please enter a valid support amount.");
-      return;
-    }
-    if (wallVisible && !anonymous && (!publicName.trim() || !country.trim())) {
-      setCheckoutError(lang === "de" ? "Bitte Name und Land für die Wall of Humanity eintragen." : "Please enter your name and country for the Wall of Humanity.");
-      return;
-    }
-    try {
-      setCheckoutBusy(true);
-      const response = await fetch("/.netlify/functions/create-mollie-payment", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: amount.toFixed(2), wallVisible, anonymous,
-          publicName: anonymous ? "" : publicName.trim(),
-          country: anonymous ? "" : country.trim(), lang
-        }),
-      });
-      const data = await response.json();
-      if (!response.ok || !data.checkoutUrl) throw new Error(data.error || "Checkout could not be created.");
-      window.location.href = data.checkoutUrl;
-    } catch (error) {
-      setCheckoutError(error instanceof Error ? error.message : "Checkout could not be created.");
-      setCheckoutBusy(false);
-    }
-  }
+  const g = goFundMeCopy[lang];
   const nextRelease = editions.find(edition => releaseTime(edition.date) > Date.now()) ?? editions[editions.length - 1];
   const nextReleaseTime = releaseTime(nextRelease.date);
   return <main>
@@ -248,15 +219,14 @@ export default function Home() {
 
     <section className="supportProject" id="support">
       <div className="supportIntro"><p className="sectionNo">06 — {s.supportKicker}</p><h2>{s.supportTitle}</h2><p>{s.supportLead}</p><div className="supportUses"><strong>{s.supportUseTitle}</strong><ul>{s.supportUses.map(item => <li key={item}>{item}</li>)}</ul></div></div>
-      <div className="supportPanel" aria-label="Support Humanity Wins">
-        <p className="panelLabel">{s.amountTitle}</p>
-        <div className="amountGrid">{[5,10,25,50,100,250].map(amount => <button type="button" key={amount} onClick={() => setSupportAmount(amount)} className={supportAmount === amount ? "isSelected" : ""}>{amount} €</button>)}<button type="button" onClick={() => setSupportAmount("custom")} className={supportAmount === "custom" ? "isSelected" : ""}>{s.ownAmount}</button></div>
-        {supportAmount === "custom" && <div className="customAmount"><span>€</span><input inputMode="decimal" value={customAmount} onChange={e => setCustomAmount(e.target.value.replace(/[^0-9.,]/g, ""))} aria-label={s.ownAmount} placeholder="25" /></div>}
-        <div className="supportChoices"><label><input type="checkbox" checked={wallVisible} onChange={e => setWallVisible(e.target.checked)} /> <span>{s.wallOptIn}</span></label><label><input type="checkbox" checked={anonymous} onChange={e => setAnonymous(e.target.checked)} /> <span>{s.anonymous}</span></label></div>
-        {wallVisible && !anonymous && <div className="wallFields"><label>{s.publicName}<input type="text" value={publicName} onChange={e => setPublicName(e.target.value)} placeholder="Name" /></label><label>{s.country}<input type="text" value={country} onChange={e => setCountry(e.target.value)} placeholder="Germany" /></label></div>}
-        <button className="checkoutButton" type="button" onClick={startSupportCheckout} disabled={checkoutBusy}>{checkoutBusy ? "MOLLIE…" : (lang === "de" ? "SICHER UNTERSTÜTZEN" : "SECURE SUPPORT CHECKOUT")}</button>
-        {checkoutError && <p className="checkoutError" role="alert">{checkoutError}</p>}
-        <p className="checkoutNote">{lang === "de" ? "Die Zahlung wird sicher über Mollie verarbeitet." : "Payment is securely processed by Mollie."}</p><p className="supportLegal">{s.important}</p>
+      <div className="supportPanel goFundMePanel" aria-label={g.badge}>
+        <div className="goFundMeGlow" aria-hidden="true" />
+        <p className="goFundMeBadge"><span aria-hidden="true">♥</span>{g.badge}</p>
+        <h3>{g.title}</h3>
+        <p className="goFundMeLead">{g.lead}</p>
+        <div className="goFundMeSignal" aria-hidden="true"><span>21</span><i/><span>1</span><i/><span>WORLD</span></div>
+        <a className="checkoutButton goFundMeButton" href={GOFUNDME_URL} target="_blank" rel="noopener noreferrer">{g.cta}<span aria-hidden="true">↗</span></a>
+        <p className="checkoutNote">{g.note}</p><p className="supportLegal">{s.important}</p>
       </div>
     </section>
 
