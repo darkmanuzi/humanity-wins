@@ -99,13 +99,19 @@ type SupportCopy = {
 
 const GOFUNDME_URL = "https://www.gofundme.com/f/humanity-wins-21-languages-one-message-one-world";
 const GERMAN_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-german-edition-2?ref=release";
+const BOSNIAN_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-bosnian-edition-2?ref=release";
+
+const editionUrls: Record<string, string> = {
+  DE: GERMAN_EDITION_URL,
+  BA: BOSNIAN_EDITION_URL,
+};
 
 const liveCopy: Record<Lang, { badge: string; title: string; listen: string; next: string }> = {
-  de: { badge: "JETZT VERÖFFENTLICHT", title: "German Edition ist live", listen: "Jetzt anhören", next: "Nächste Edition" },
-  en: { badge: "OUT NOW", title: "German Edition is live", listen: "Listen now", next: "Next edition" },
-  fr: { badge: "DISPONIBLE MAINTENANT", title: "La German Edition est en ligne", listen: "Écouter maintenant", next: "Prochaine édition" },
-  es: { badge: "YA DISPONIBLE", title: "La German Edition ya está disponible", listen: "Escuchar ahora", next: "Próxima edición" },
-  bs: { badge: "SADA DOSTUPNO", title: "German Edition je objavljena", listen: "Slušaj sada", next: "Sljedeće izdanje" },
+  de: { badge: "JETZT VERÖFFENTLICHT", title: "Bosnian Edition ist live", listen: "Jetzt anhören", next: "Nächste Edition" },
+  en: { badge: "OUT NOW", title: "Bosnian Edition is live", listen: "Listen now", next: "Next edition" },
+  fr: { badge: "DISPONIBLE MAINTENANT", title: "La Bosnian Edition est en ligne", listen: "Écouter maintenant", next: "Prochaine édition" },
+  es: { badge: "YA DISPONIBLE", title: "La Bosnian Edition ya está disponible", listen: "Escuchar ahora", next: "Próxima edición" },
+  bs: { badge: "SADA DOSTUPNO", title: "Bosnian Edition je objavljena", listen: "Slušaj sada", next: "Sljedeće izdanje" },
 };
 
 const goFundMeCopy: Record<Lang, { badge: string; title: string; lead: string; cta: string; note: string }> = {
@@ -211,18 +217,19 @@ export default function Home() {
       <select aria-label="Language" value={lang} onChange={e => setLang(e.target.value as Lang)}><option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="es">ES</option><option value="bs">BS</option></select>
     </header>
 
-    <section className="hero" id="top"><div className="stars"/><div className="heroText"><p className="eyebrow">{t.eyebrow}</p><div className="liveAnnouncement"><span>{live.badge}</span><strong>{live.title}</strong></div><h1>{t.title}</h1><p className="lead">{t.lead}</p><div className="release"><span>{t.releaseLabel}</span><strong>{t.releaseDate}</strong></div><p className="nextRelease">{live.next} · {nextRelease.title} · {formatReleaseDate(nextRelease.date, lang)}</p><Countdown labels={t.units} target={nextReleaseTime}/><div className="heroActions"><a className="button liveButton" href={GERMAN_EDITION_URL} target="_blank" rel="noopener noreferrer">{live.listen} ↗</a><a className="outlineButton" href="#versions">{t.cta}</a></div></div><div className="coverWrap"><img className="cover" src="/world-cover.png" alt="Imagine Humanity Wins World Edition cover"/><span className="preRelease isLive">{live.badge}</span></div></section>
+    <section className="hero" id="top"><div className="stars"/><div className="heroText"><p className="eyebrow">{t.eyebrow}</p><div className="liveAnnouncement"><span>{live.badge}</span><strong>{live.title}</strong></div><h1>{t.title}</h1><p className="lead">{t.lead}</p><div className="release"><span>{t.releaseLabel}</span><strong>{t.releaseDate}</strong></div><p className="nextRelease">{live.next} · {nextRelease.title} · {formatReleaseDate(nextRelease.date, lang)}</p><Countdown labels={t.units} target={nextReleaseTime}/><div className="heroActions"><a className="button liveButton" href={BOSNIAN_EDITION_URL} target="_blank" rel="noopener noreferrer">{live.listen} ↗</a><a className="outlineButton" href="#versions">{t.cta}</a></div></div><div className="coverWrap"><img className="cover" src="/world-cover.png" alt="Imagine Humanity Wins World Edition cover"/><span className="preRelease isLive">{live.badge}</span></div></section>
 
     <section className="manifesto" id="mission"><p className="sectionNo">01 — THE MISSION</p><h2>{t.missionTitle}</h2><p>{t.mission}</p><div className="numbers"><div><strong>21</strong><span>Languages</span></div><div><strong>22</strong><span>Daily releases</span></div><div><strong>1</strong><span>Shared message</span></div></div></section>
 
-    <section className="releaseStory"><div><p className="sectionNo">02 — THE RELEASE</p><h2>{t.releaseTitle}</h2><p>{t.releaseCopy}</p></div><div className="platforms" aria-label="Music platforms">{["Spotify", "Apple Music", "Amazon Music", "YouTube Music", "Deezer"].map(platform => <a href={GERMAN_EDITION_URL} target="_blank" rel="noopener noreferrer" key={platform}>{platform}<small>{live.listen} ↗</small></a>)}</div></section>
+    <section className="releaseStory"><div><p className="sectionNo">02 — THE RELEASE</p><h2>{t.releaseTitle}</h2><p>{t.releaseCopy}</p></div><div className="platforms" aria-label="Music platforms">{["Spotify", "Apple Music", "Amazon Music", "YouTube Music", "Deezer"].map(platform => <a href={BOSNIAN_EDITION_URL} target="_blank" rel="noopener noreferrer" key={platform}>{platform}<small>{live.listen} ↗</small></a>)}</div></section>
 
     <section className="journey" aria-labelledby="journey-title"><div className="sectionHeading"><p className="sectionNo">03 — RELEASE JOURNEY</p><h2 id="journey-title">{t.journeyTitle}</h2><p>{t.journeyIntro}</p></div><div className="journeyTrack">{editions.map((edition, i) => { const released = Date.now() >= releaseTime(edition.date); const current = edition.code === nextRelease.code; return <div className={`journeyStop ${released ? "isReleased" : ""} ${current ? "isNext" : ""}`} key={edition.code}><span className="journeyDot"/><b>{String(i + 1).padStart(2, "0")}</b><strong>{edition.code}</strong><small>{new Intl.DateTimeFormat(dateLocales[lang], { day: "2-digit", month: "short" }).format(new Date(`${edition.date}T12:00:00+02:00`))}</small></div>; })}</div></section>
 
     <section className="versions" id="versions"><div className="sectionHeading"><p className="sectionNo">04 — THE EDITIONS</p><h2>{t.languagesTitle}</h2><p>{t.languagesIntro}</p></div><div className="editionGrid">{editions.map((edition, i) => {
       const released = Date.now() >= releaseTime(edition.date);
       const dateLabel = formatReleaseDate(edition.date, lang);
-      return <article className={`edition ${released ? "editionReleased" : ""}`} key={edition.code}><div><span className="editionNo">{String(i + 1).padStart(2, "0")}</span><b>{edition.code}</b></div><h3>{edition.name}</h3><p className="editionTitle">{edition.title}</p><p>{t.coming}: <strong>{dateLabel}</strong></p>{edition.code === "DE" ? <a className="editionListen" href={GERMAN_EDITION_URL} target="_blank" rel="noopener noreferrer">{live.listen} ↗</a> : <button type="button" disabled aria-label={`${edition.title}: ${dateLabel}`}>{released ? t.streamLive : t.streamSoon}</button>}</article>;
+      const editionUrl = editionUrls[edition.code];
+      return <article className={`edition ${released ? "editionReleased" : ""}`} key={edition.code}><div><span className="editionNo">{String(i + 1).padStart(2, "0")}</span><b>{edition.code}</b></div><h3>{edition.name}</h3><p className="editionTitle">{edition.title}</p><p>{t.coming}: <strong>{dateLabel}</strong></p>{editionUrl ? <a className="editionListen" href={editionUrl} target="_blank" rel="noopener noreferrer">{live.listen} ↗</a> : <button type="button" disabled aria-label={`${edition.title}: ${dateLabel}`}>{released ? t.streamLive : t.streamSoon}</button>}</article>;
     })}</div></section>
 
     <section className="namesake" id="story"><p className="sectionNo">05 — {t.storyKicker}</p><h2>{t.storyTitle}</h2><p>{t.story}</p><a href="https://www.amazon.de/NAME-PEACE-Way-World-Peace/dp/0595516149" target="_blank" rel="noreferrer">{t.book} ↗</a></section>
