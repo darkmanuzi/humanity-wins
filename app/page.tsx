@@ -97,6 +97,7 @@ type SupportCopy = {
   transparencyKicker: string; transparencyTitle: string; transparencyLead: string; sold: string; committed: string; generated: string; transferred: string; recipient: string; recipientTbd: string; reporting: string;
 };
 
+const STARTNEXT_URL = "https://www.startnext.com/humanity-wins?utm_source=copy_link&utm_medium=social&utm_campaign=project_share";
 const GOFUNDME_URL = "https://www.gofundme.com/f/humanity-wins-21-languages-one-message-one-world";
 const GERMAN_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-german-edition-2?ref=release";
 const BOSNIAN_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-bosnian-edition-2?ref=release";
@@ -124,6 +125,14 @@ const goFundMeCopy: Record<Lang, { badge: string; title: string; lead: string; c
   fr: { badge: "CAMPAGNE GOFUNDME OFFICIELLE", title: "Aidez-nous à faire voyager HUMANITY WINS dans le monde.", lead: "Votre soutien finance le développement indépendant, la production et la portée internationale de ce projet de paix. Retrouvez l’histoire complète et les dernières nouvelles sur GoFundMe.", cta: "Soutenir sur GoFundMe", note: "Paiement sécurisé via GoFundMe · Vous choisissez votre contribution" },
   es: { badge: "CAMPAÑA OFICIAL EN GOFUNDME", title: "Ayúdanos a llevar HUMANITY WINS al mundo.", lead: "Tu apoyo financia el desarrollo independiente, la producción y el alcance internacional de este proyecto de paz. En GoFundMe encontrarás la historia completa y las últimas novedades.", cta: "Apoyar en GoFundMe", note: "Gestión segura a través de GoFundMe · Tú eliges tu aportación" },
   bs: { badge: "ZVANIČNA GOFUNDME KAMPANJA", title: "Pomozite nam da HUMANITY WINS prenesemo u svijet.", lead: "Vaša podrška finansira nezavisan razvoj, produkciju i međunarodni domet ovog mirovnog projekta. Na GoFundMe stranici pronaći ćete cijelu priču kampanje i najnovije informacije.", cta: "Podrži na GoFundMe", note: "Sigurna obrada putem GoFundMe · Vi birate iznos podrške" },
+};
+
+const fundingCopy: Record<Lang, { badge: string; title: string; lead: string; cta: string; note: string; alternative: string }> = {
+  de: { badge: "FINANZIERUNG LÄUFT JETZT", title: "Jetzt gemeinsam HUMANITY WINS möglich machen.", lead: "Seit dem 3. September 2026 ist HUMANITY WINS offiziell in der Finanzierungsphase bei Startnext. Unterstütze das Friedensprojekt dort direkt und hilf, seine Botschaft in 21 Sprachen in die Welt zu tragen.", cta: "Jetzt auf Startnext unterstützen", note: "Offizielle Finanzierungsphase auf Startnext · Jeder Beitrag bewegt das Projekt", alternative: "Alternative Unterstützung" },
+  en: { badge: "FUNDING IS NOW LIVE", title: "Together, we can make HUMANITY WINS possible.", lead: "Since 3 September 2026, HUMANITY WINS has officially been in its funding phase on Startnext. Support the peace project directly and help carry its message to the world in 21 languages.", cta: "Support HUMANITY WINS on Startnext", note: "Official funding phase on Startnext · Every contribution moves the project forward", alternative: "Alternative way to support" },
+  fr: { badge: "LA CAMPAGNE EST OUVERTE", title: "Ensemble, rendons HUMANITY WINS possible.", lead: "Depuis le 3 septembre 2026, HUMANITY WINS est officiellement en phase de financement sur Startnext. Soutenez directement le projet de paix et aidez-nous à porter son message dans le monde en 21 langues.", cta: "Soutenir HUMANITY WINS sur Startnext", note: "Phase de financement officielle sur Startnext · Chaque contribution fait avancer le projet", alternative: "Autre possibilité de soutien" },
+  es: { badge: "LA FINANCIACIÓN YA ESTÁ ACTIVA", title: "Juntos podemos hacer posible HUMANITY WINS.", lead: "Desde el 3 de septiembre de 2026, HUMANITY WINS está oficialmente en fase de financiación en Startnext. Apoya directamente el proyecto de paz y ayuda a llevar su mensaje al mundo en 21 idiomas.", cta: "Apoyar HUMANITY WINS en Startnext", note: "Fase oficial de financiación en Startnext · Cada contribución impulsa el proyecto", alternative: "Otra forma de apoyar" },
+  bs: { badge: "FINANSIRANJE JE SADA AKTIVNO", title: "Zajedno možemo ostvariti HUMANITY WINS.", lead: "Od 3. septembra 2026. HUMANITY WINS je zvanično u fazi finansiranja na platformi Startnext. Podržite mirovni projekat direktno i pomozite da njegova poruka na 21 jeziku stigne u svijet.", cta: "Podrži HUMANITY WINS na Startnextu", note: "Zvanična faza finansiranja na Startnextu · Svaka podrška pokreće projekat naprijed", alternative: "Drugi način podrške" },
 };
 
 const supportCopy: Record<Lang, SupportCopy> = {
@@ -211,6 +220,7 @@ export default function Home() {
   const t = copy[lang];
   const s = supportCopy[lang];
   const g = goFundMeCopy[lang];
+  const f = fundingCopy[lang];
   const live = liveCopy[lang];
   const nextRelease = editions.find(edition => releaseTime(edition.date) > Date.now()) ?? editions[editions.length - 1];
   const nextReleaseTime = releaseTime(nextRelease.date);
@@ -240,14 +250,22 @@ export default function Home() {
 
     <section className="supportProject" id="support">
       <div className="supportIntro"><p className="sectionNo">06 — {s.supportKicker}</p><h2>{s.supportTitle}</h2><p>{s.supportLead}</p><div className="supportUses"><strong>{s.supportUseTitle}</strong><ul>{s.supportUses.map(item => <li key={item}>{item}</li>)}</ul></div></div>
-      <div className="supportPanel goFundMePanel" aria-label={g.badge}>
+      <div className="supportPanel goFundMePanel fundingPanel" aria-label={f.badge}>
         <div className="goFundMeGlow" aria-hidden="true" />
-        <p className="goFundMeBadge"><span aria-hidden="true">♥</span>{g.badge}</p>
-        <h3>{g.title}</h3>
-        <p className="goFundMeLead">{g.lead}</p>
+        <p className="goFundMeBadge fundingBadge"><span aria-hidden="true">●</span>{f.badge}</p>
+        <h3>{f.title}</h3>
+        <p className="goFundMeLead">{f.lead}</p>
         <div className="goFundMeSignal" aria-hidden="true"><span>21</span><i/><span>1</span><i/><span>WORLD</span></div>
-        <a className="checkoutButton goFundMeButton" href={GOFUNDME_URL} target="_blank" rel="noopener noreferrer">{g.cta}<span aria-hidden="true">↗</span></a>
-        <p className="checkoutNote">{g.note}</p><p className="supportLegal">{s.important}</p>
+        <a className="checkoutButton goFundMeButton" href={STARTNEXT_URL} target="_blank" rel="noopener noreferrer">{f.cta}<span aria-hidden="true">↗</span></a>
+        <p className="checkoutNote">{f.note}</p>
+        <div className="alternativeFunding">
+          <p className="alternativeLabel">{f.alternative}</p>
+          <h4>{g.title}</h4>
+          <p>{g.lead}</p>
+          <a href={GOFUNDME_URL} target="_blank" rel="noopener noreferrer">{g.cta}<span aria-hidden="true">↗</span></a>
+          <small>{g.note}</small>
+        </div>
+        <p className="supportLegal">{s.important}</p>
       </div>
     </section>
 
