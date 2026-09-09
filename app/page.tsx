@@ -107,7 +107,8 @@ const TURKISH_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/im
 const GREEK_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-greek-edition?ref=release";
 const ITALIAN_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-italian-edition?ref=release";
 const FRENCH_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-french-edition?ref=release";
-const SPANISH_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-spanish-edition?ref=release";\nconst BRAZIL_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-brazil-edition?ref=release";
+const SPANISH_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-spanish-edition?ref=release";
+const BRAZIL_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-brazil-edition?ref=release";
 
 const editionUrls: Record<string, string> = {
   DE: GERMAN_EDITION_URL,
@@ -118,7 +119,8 @@ const editionUrls: Record<string, string> = {
   GR: GREEK_EDITION_URL,
   IT: ITALIAN_EDITION_URL,
   FR: FRENCH_EDITION_URL,
-  ES: SPANISH_EDITION_URL,\n  BR: BRAZIL_EDITION_URL,
+  ES: SPANISH_EDITION_URL,
+  BR: BRAZIL_EDITION_URL,
 };
 
 const liveCopy: Record<Lang, { badge: string; title: string; listen: string; next: string }> = {
