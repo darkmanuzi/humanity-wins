@@ -116,6 +116,7 @@ const HEBREW_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/ima
 const HINDI_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-hindi-edition?ref=release";
 const CHINESE_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-chinese-edition?ref=release";
 const JAPANESE_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-japanese-edition?ref=release";
+const SOUTH_KOREAN_EDITION_URL = "https://distrokid.com/hyperfollow/unitedhumanity/imagine-humanity-wins-south-korean-edition?ref=release";
 
 const editionUrls: Record<string, string> = {
   DE: GERMAN_EDITION_URL,
@@ -135,14 +136,15 @@ const editionUrls: Record<string, string> = {
   IN: HINDI_EDITION_URL,
   CN: CHINESE_EDITION_URL,
   JP: JAPANESE_EDITION_URL,
+  KR: SOUTH_KOREAN_EDITION_URL,
 };
 
 const liveCopy: Record<Lang, { badge: string; title: string; listen: string; next: string }> = {
-  de: { badge: "JETZT VERÖFFENTLICHT", title: "Japanese Edition ist live", listen: "Jetzt anhören", next: "Nächste Edition" },
-  en: { badge: "OUT NOW", title: "Japanese Edition is live", listen: "Listen now", next: "Next edition" },
-  fr: { badge: "DISPONIBLE MAINTENANT", title: "La Japanese Edition est en ligne", listen: "Écouter maintenant", next: "Prochaine édition" },
-  es: { badge: "YA DISPONIBLE", title: "La Japanese Edition ya está disponible", listen: "Escuchar ahora", next: "Próxima edición" },
-  bs: { badge: "SADA DOSTUPNO", title: "Japanese Edition je objavljena", listen: "Slušaj sada", next: "Sljedeće izdanje" },
+  de: { badge: "JETZT VERÖFFENTLICHT", title: "South Korean Edition ist live", listen: "Jetzt anhören", next: "Nächste Edition" },
+  en: { badge: "OUT NOW", title: "South Korean Edition is live", listen: "Listen now", next: "Next edition" },
+  fr: { badge: "DISPONIBLE MAINTENANT", title: "La South Korean Edition est en ligne", listen: "Écouter maintenant", next: "Prochaine édition" },
+  es: { badge: "YA DISPONIBLE", title: "La South Korean Edition ya está disponible", listen: "Escuchar ahora", next: "Próxima edición" },
+  bs: { badge: "SADA DOSTUPNO", title: "South Korean Edition je objavljena", listen: "Slušaj sada", next: "Sljedeće izdanje" },
 };
 
 const goFundMeCopy: Record<Lang, { badge: string; title: string; lead: string; cta: string; note: string }> = {
@@ -257,11 +259,11 @@ export default function Home() {
       <select aria-label="Language" value={lang} onChange={e => setLang(e.target.value as Lang)}><option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="es">ES</option><option value="bs">BS</option></select>
     </header>
 
-    <section className="hero" id="top"><div className="stars"/><div className="heroText"><p className="eyebrow">{t.eyebrow}</p><div className="liveAnnouncement"><span>{live.badge}</span><strong>{live.title}</strong></div><h1>{t.title}</h1><p className="lead">{t.lead}</p><div className="release"><span>{t.releaseLabel}</span><strong>{t.releaseDate}</strong></div><p className="nextRelease">{live.next} · {nextRelease.title} · {formatReleaseDate(nextRelease.date, lang)}</p><Countdown labels={t.units} target={nextReleaseTime}/><div className="heroActions"><a className="button liveButton" href={JAPANESE_EDITION_URL} target="_blank" rel="noopener noreferrer">{live.listen} ↗</a><a className="outlineButton" href="#versions">{t.cta}</a></div></div><div className="coverWrap"><img className="cover" src="/world-cover.png" alt="Imagine Humanity Wins World Edition cover"/><span className="preRelease isLive">{live.badge}</span></div></section>
+    <section className="hero" id="top"><div className="stars"/><div className="heroText"><p className="eyebrow">{t.eyebrow}</p><div className="liveAnnouncement"><span>{live.badge}</span><strong>{live.title}</strong></div><h1>{t.title}</h1><p className="lead">{t.lead}</p><div className="release"><span>{t.releaseLabel}</span><strong>{t.releaseDate}</strong></div><p className="nextRelease">{live.next} · {nextRelease.title} · {formatReleaseDate(nextRelease.date, lang)}</p><Countdown labels={t.units} target={nextReleaseTime}/><div className="heroActions"><a className="button liveButton" href={SOUTH_KOREAN_EDITION_URL} target="_blank" rel="noopener noreferrer">{live.listen} ↗</a><a className="outlineButton" href="#versions">{t.cta}</a></div></div><div className="coverWrap"><img className="cover" src="/world-cover.png" alt="Imagine Humanity Wins World Edition cover"/><span className="preRelease isLive">{live.badge}</span></div></section>
 
     <section className="manifesto" id="mission"><p className="sectionNo">01 — THE MISSION</p><h2>{t.missionTitle}</h2><p>{t.mission}</p><div className="numbers"><div><strong>21</strong><span>Languages</span></div><div><strong>22</strong><span>Daily releases</span></div><div><strong>1</strong><span>Shared message</span></div></div></section>
 
-    <section className="releaseStory"><div><p className="sectionNo">02 — THE RELEASE</p><h2>{t.releaseTitle}</h2><p>{t.releaseCopy}</p></div><div className="platforms" aria-label="Music platforms">{["Spotify", "Apple Music", "Amazon Music", "YouTube Music", "Deezer"].map(platform => <a href={JAPANESE_EDITION_URL} target="_blank" rel="noopener noreferrer" key={platform}>{platform}<small>{live.listen} ↗</small></a>)}</div></section>
+    <section className="releaseStory"><div><p className="sectionNo">02 — THE RELEASE</p><h2>{t.releaseTitle}</h2><p>{t.releaseCopy}</p></div><div className="platforms" aria-label="Music platforms">{["Spotify", "Apple Music", "Amazon Music", "YouTube Music", "Deezer"].map(platform => <a href={SOUTH_KOREAN_EDITION_URL} target="_blank" rel="noopener noreferrer" key={platform}>{platform}<small>{live.listen} ↗</small></a>)}</div></section>
 
     <section className="journey" aria-labelledby="journey-title"><div className="sectionHeading"><p className="sectionNo">03 — RELEASE JOURNEY</p><h2 id="journey-title">{t.journeyTitle}</h2><p>{t.journeyIntro}</p></div><div className="journeyTrack">{editions.map((edition, i) => { const released = Date.now() >= releaseTime(edition.date); const current = edition.code === nextRelease.code; return <div className={`journeyStop ${released ? "isReleased" : ""} ${current ? "isNext" : ""}`} key={edition.code}><span className="journeyDot"/><b>{String(i + 1).padStart(2, "0")}</b><strong>{edition.code}</strong><small>{new Intl.DateTimeFormat(dateLocales[lang], { day: "2-digit", month: "short" }).format(new Date(`${edition.date}T12:00:00+02:00`))}</small></div>; })}</div></section>
 
