@@ -295,8 +295,6 @@ export default function Home() {
         <p className="checkoutNote">{g.note}</p>
         <p className="supportLegal">{s.important}</p>
       </div>
-        <p className="supportLegal">{s.important}</p>
-      </div>
     </section>
 
     <section className="wallSection" id="wall"><div className="sectionHeading"><p className="sectionNo">07 — {s.wallKicker}</p><h2>{s.wallTitle}</h2><p>{s.wallLead}</p></div><div className="foundingWall"><div className="foundingHeader"><span>2026</span><h3>{s.foundingTitle}</h3><p>{s.foundingLead}</p></div><div className="wallEmpty"><div className="flagRibbon" aria-hidden="true"><span>🇩🇪</span><span>🇧🇦</span><span>🇺🇦</span><span>🇵🇱</span><span>🇹🇷</span><span>🇬🇷</span><span>🇮🇹</span><span>🇫🇷</span><span>🇪🇸</span><span>🇧🇷</span><span>🇯🇵</span><span>🇺🇸</span></div><article className="supporterSpotlight"><p className="supporterBadge">Unterstützer der ersten Stunde</p><h4>Denny Böhme</h4><p className="supporterLocation">Deutschland · Gemeinsam mit</p><div className="supporterCompanies"><a href="https://www.kreditwelt.de/" target="_blank" rel="noopener noreferrer" aria-label="Kreditwelt GmbH besuchen"><img src="/kreditwelt-logo.svg" alt="Kreditwelt GmbH"/><span>Kreditwelt GmbH ↗</span></a><a href="https://www.sanierungswelt.immo/" target="_blank" rel="noopener noreferrer" aria-label="Sanierungswelt UG besuchen"><img src="/sanierungswelt-logo.svg" alt="Sanierungswelt UG"/><span>Sanierungswelt UG ↗</span></a></div></article><p>{s.equality}</p></div></div></section>
