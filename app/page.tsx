@@ -285,21 +285,16 @@ export default function Home() {
 
     <section className="supportProject" id="support">
       <div className="supportIntro"><p className="sectionNo">06 — {s.supportKicker}</p><h2>{s.supportTitle}</h2><p>{s.supportLead}</p><div className="supportUses"><strong>{s.supportUseTitle}</strong><ul>{s.supportUses.map(item => <li key={item}>{item}</li>)}</ul></div></div>
-      <div className="supportPanel goFundMePanel fundingPanel" aria-label={f.badge}>
+      <div className="supportPanel goFundMePanel" aria-label={g.badge}>
         <div className="goFundMeGlow" aria-hidden="true" />
-        <p className="goFundMeBadge fundingBadge"><span aria-hidden="true">●</span>{f.badge}</p>
-        <h3>{f.title}</h3>
-        <p className="goFundMeLead">{f.lead}</p>
+        <p className="goFundMeBadge"><span aria-hidden="true">●</span>{g.badge}</p>
+        <h3>{g.title}</h3>
+        <p className="goFundMeLead">{g.lead}</p>
         <div className="goFundMeSignal" aria-hidden="true"><span>21</span><i/><span>1</span><i/><span>WORLD</span></div>
-        <a className="checkoutButton goFundMeButton" href={STARTNEXT_URL} target="_blank" rel="noopener noreferrer">{f.cta}<span aria-hidden="true">↗</span></a>
-        <p className="checkoutNote">{f.note}</p>
-        <div className="alternativeFunding">
-          <p className="alternativeLabel">{f.alternative}</p>
-          <h4>{g.title}</h4>
-          <p>{g.lead}</p>
-          <a href={GOFUNDME_URL} target="_blank" rel="noopener noreferrer">{g.cta}<span aria-hidden="true">↗</span></a>
-          <small>{g.note}</small>
-        </div>
+        <a className="checkoutButton goFundMeButton" href={GOFUNDME_URL} target="_blank" rel="noopener noreferrer">{g.cta}<span aria-hidden="true">↗</span></a>
+        <p className="checkoutNote">{g.note}</p>
+        <p className="supportLegal">{s.important}</p>
+      </div>
         <p className="supportLegal">{s.important}</p>
       </div>
     </section>
